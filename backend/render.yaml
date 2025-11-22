@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: parameter-visualiser-backend
+    runtime: python
+    buildCommand: "pip install -r requirements.txt && python manage.py migrate && python manage.py collectstatic --noinput"
+    startCommand: "gunicorn config.wsgi:application"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      - key: DATABASE_URL
+        fromDatabase:
+          name: parameter-visualiser-db
+          property: connectionString
+      - key: DJANGO_SETTINGS_MODULE
+        value: config.settings
+
+databases:
+  - name: parameter-visualiser-db
+    databaseName: parameter_visualiser
+    user: parameter_visualiser
