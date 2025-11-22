@@ -1,5 +1,7 @@
 # Chemical Equipment Parameter Visualizer
 
+🚀 **Live Demo**: [https://parameter-visualiser.vercel.app](https://parameter-visualiser.vercel.app)
+
 ## Project Overview
 
 A hybrid application that runs both as a **Web Application** (React) and a **Desktop Application** (PyQt5), designed for data visualization and analytics of chemical equipment parameters. The application features a shared Django REST API backend that handles CSV file uploads, data analysis, and report generation.
@@ -9,12 +11,12 @@ A hybrid application that runs both as a **Web Application** (React) and a **Des
 - **CSV Upload**: Upload CSV files containing equipment data through both web and desktop interfaces
 - **Data Analysis**: Automatic calculation of summary statistics (averages, counts, distributions)
 - **Interactive Visualizations**: 
-  - Web: Chart.js powered charts (Bar, Line, Pie)
+  - Web: Chart.js powered colorful charts (Bar, Line, Pie)
   - Desktop: Matplotlib charts embedded in PyQt5
 - **Data Tables**: View detailed equipment information in tabular format
 - **History Management**: Store and access the last 5 uploaded datasets
 - **PDF Reports**: Generate comprehensive PDF reports with equipment statistics
-- **Basic Authentication**: REST API supports basic authentication
+- **Cloud Deployment**: Fully deployed with backend on Render and frontend on Vercel
 - **SQLite Database**: Persistent storage for all uploaded datasets
 
 ## Tech Stack
@@ -27,7 +29,13 @@ A hybrid application that runs both as a **Web Application** (React) and a **Des
 | **Data Processing** | Pandas | CSV parsing and statistical analysis |
 | **Database** | SQLite | Store uploaded datasets |
 | **PDF Generation** | ReportLab | Create detailed PDF reports |
+| **Deployment** | Vercel + Render | Cloud hosting for web and API |
 | **Version Control** | Git & GitHub | Code management |
+
+## Live Deployment
+
+- **Web App**: [https://parameter-visualiser.vercel.app](https://parameter-visualiser.vercel.app)
+- **Backend API**: [https://parameter-visualiser-backend.onrender.com/api](https://parameter-visualiser-backend.onrender.com/api)
 
 ## Project Structure
 
@@ -289,16 +297,31 @@ pip install pyinstaller
 pyinstaller --onefile --windowed main.py
 ```
 
-## Deployment Options
+## Deployment
 
-### Web Application
-- **Vercel/Netlify**: Deploy React frontend
-- **Heroku/Railway**: Deploy Django backend
-- **AWS/Azure**: Full stack deployment
+This project is fully deployed and accessible online:
 
-### Desktop Application
-- Distribute packaged executable (.exe, .app, or binary)
-- Include Python interpreter for standalone distribution
+### Current Deployment
+- **Frontend**: Deployed on Vercel at [https://parameter-visualiser.vercel.app](https://parameter-visualiser.vercel.app)
+- **Backend**: Deployed on Render at [https://parameter-visualiser-backend.onrender.com](https://parameter-visualiser-backend.onrender.com)
+
+### Deployment Configuration
+
+**Backend (Render)**:
+- Build Command: `pip install -r requirements.txt && python manage.py migrate && python manage.py collectstatic --noinput`
+- Start Command: `gunicorn config.wsgi:application`
+- Auto-deploys from GitHub on push
+
+**Frontend (Vercel)**:
+- Framework: React
+- Root Directory: `web-frontend`
+- Environment Variable: `REACT_APP_API_URL` = `https://parameter-visualiser-backend.onrender.com/api`
+- Auto-deploys from GitHub on push
+
+### Alternative Deployment Options
+- **Backend**: Railway, Fly.io, PythonAnywhere, AWS, Azure
+- **Frontend**: Netlify, GitHub Pages, Cloudflare Pages
+- **Desktop**: Distribute as packaged executable (.exe, .app, or binary)
 
 ## Troubleshooting
 
